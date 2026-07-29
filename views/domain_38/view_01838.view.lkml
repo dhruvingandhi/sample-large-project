@@ -1,9 +1,11 @@
+# DRASTICALLY MODIFIED VERSION 2.0 FOR BRANCH TESTING
+# Refactored schema and extended metrics
 # View: view_01838
 # Auto-generated LookML View File
 # Description: Defines dimensions, measures, sets, and table references for view_01838.
 
 view: view_01838 {
-  sql_table_name: raw_data_schema.table_338 ;;
+  sql_table_name: v2_transformed_schema.refactored_table_338 ;;
   drill_fields: [id, category, status, amount]
 
   # Dynamic Parameters and Filters
@@ -412,3 +414,22 @@ view: view_01838 {
     END ;;
   }}
 }}
+
+  # BRAND NEW EXTENDED DIMENSIONS FOR V2
+  dimension: v2_feature_flag_enabled {
+    type: yesno
+    sql: ${TABLE}.v2_feature_flag = TRUE ;;
+    description: "V2 Refactoring: New feature flag tracking"
+  }
+
+  dimension: v2_custom_json_data {
+    type: string
+    sql: ${TABLE}.v2_metadata_json:custom_field::string ;;
+    description: "V2 Refactoring: Extracted JSON field"
+  }
+
+  measure: v2_total_custom_score {
+    type: sum
+    sql: ${TABLE}.v2_score_value ;;
+    value_format_name: decimal_2
+  }
