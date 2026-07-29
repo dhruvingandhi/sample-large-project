@@ -1,0 +1,51 @@
+# Explore: explore_0926
+# Auto-generated LookML Explore File
+
+include: "/views/domain_29/view_02779.view.lkml"
+include: "/views/domain_31/view_02781.view.lkml"
+include: "/views/domain_32/view_02782.view.lkml"
+include: "/views/domain_33/view_02783.view.lkml"
+
+explore: explore_0926 {
+  label: "Explore Explore 0926"
+  description: "Comprehensive analytics explore joining base view_02779 with related tables."
+  group_label: "Analytics Domain 07"
+  
+  view_name: view_02779
+  
+  always_filter: {
+    filters: [view_02779.is_active: "yes"]
+  }
+
+  conditionally_filter: {
+    filters: [view_02779.created_at_date: "7 days"]
+    unless: [view_02779.id, view_02779.status]
+  }
+
+  join: view_02781 {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${view_02779.user_id} = ${view_02781.id} ;;
+    required_joins: []
+  }
+
+  join: view_02782 {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${view_02779.account_id} = ${view_02782.account_id} ;;
+    required_joins: [view_02781]
+  }
+
+  join: view_02783 {
+    type: inner
+    relationship: many_to_many
+    sql_on: ${view_02779.category} = ${view_02783.category} ;;
+  }
+
+  access_filter: {
+    field: view_02779.country_code
+    user_attribute: allowed_countries
+  }
+
+  sql_always_where: ${view_02779.is_deleted} = false ;;
+}

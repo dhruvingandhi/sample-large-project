@@ -1,0 +1,51 @@
+# Explore: explore_0581
+# Auto-generated LookML Explore File
+
+include: "/views/domain_44/view_01744.view.lkml"
+include: "/views/domain_46/view_01746.view.lkml"
+include: "/views/domain_47/view_01747.view.lkml"
+include: "/views/domain_48/view_01748.view.lkml"
+
+explore: explore_0581 {
+  label: "Explore Explore 0581"
+  description: "Comprehensive analytics explore joining base view_01744 with related tables."
+  group_label: "Analytics Domain 02"
+  
+  view_name: view_01744
+  
+  always_filter: {
+    filters: [view_01744.is_active: "yes"]
+  }
+
+  conditionally_filter: {
+    filters: [view_01744.created_at_date: "7 days"]
+    unless: [view_01744.id, view_01744.status]
+  }
+
+  join: view_01746 {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${view_01744.user_id} = ${view_01746.id} ;;
+    required_joins: []
+  }
+
+  join: view_01747 {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${view_01744.account_id} = ${view_01747.account_id} ;;
+    required_joins: [view_01746]
+  }
+
+  join: view_01748 {
+    type: inner
+    relationship: many_to_many
+    sql_on: ${view_01744.category} = ${view_01748.category} ;;
+  }
+
+  access_filter: {
+    field: view_01744.country_code
+    user_attribute: allowed_countries
+  }
+
+  sql_always_where: ${view_01744.is_deleted} = false ;;
+}
