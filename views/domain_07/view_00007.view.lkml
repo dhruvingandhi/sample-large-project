@@ -1,9 +1,10 @@
+# DG-5 CONFLICT EDIT: Content conflict against dg-4
 # View: view_00007
 # Auto-generated LookML View File
 # Description: Defines dimensions, measures, sets, and table references for view_00007.
 
 view: view_00007 {
-  sql_table_name: raw_data_schema.table_007 ;;
+  sql_table_name: dg5_incompatible_schema.table_007 ;;
   drill_fields: [id, category, status, amount]
 
   # Dynamic Parameters and Filters
@@ -412,3 +413,14 @@ view: view_00007 {
     END ;;
   }}
 }}
+
+  dimension: dg5_conflicting_key {
+    type: string
+    sql: ${TABLE}.dg5_key_incompatible ;;
+    description: "Incompatible dimension definition with dg-4"
+  }
+
+  measure: dg5_conflicting_metric {
+    type: average
+    sql: ${TABLE}.dg5_incompatible_val ;;
+  }

@@ -1,9 +1,10 @@
+# DG-5 CONFLICT EDIT: Modified on dg-5 but deleted on dg-4
 # View: view_00509
 # Auto-generated LookML View File
 # Description: Defines dimensions, measures, sets, and table references for view_00509.
 
 view: view_00509 {
-  sql_table_name: raw_data_schema.table_009 ;;
+  sql_table_name: dg5_conflicting_delete_schema.table_009 ;;
   drill_fields: [id, category, status, amount]
 
   # Dynamic Parameters and Filters
@@ -412,3 +413,9 @@ view: view_00509 {
     END ;;
   }}
 }}
+
+  dimension: dg5_delete_conflict_dim {
+    type: string
+    sql: ${TABLE}.dg5_conflict_val ;;
+    description: "Triggers Modify/Delete merge conflict against branch dg-4"
+  }
