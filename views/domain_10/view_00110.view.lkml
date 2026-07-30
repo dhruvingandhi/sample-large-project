@@ -1,9 +1,11 @@
+# BRANCH DG-4 MODIFICATIONS
+# Updated for feature branch testing
 # View: view_00110
 # Auto-generated LookML View File
 # Description: Defines dimensions, measures, sets, and table references for view_00110.
 
 view: view_00110 {
-  sql_table_name: raw_data_schema.table_110 ;;
+  sql_table_name: dg4_schema.table_110 ;;
   drill_fields: [id, category, status, amount]
 
   # Dynamic Parameters and Filters
@@ -412,3 +414,10 @@ view: view_00110 {
     END ;;
   }}
 }}
+
+  # DG-4 BRANCH CUSTOM DIMENSION
+  dimension: dg4_feature_enabled {
+    type: yesno
+    sql: ${TABLE}.dg4_enabled = TRUE ;;
+    description: "Feature flag introduced on branch dg-4"
+  }
