@@ -1,3 +1,4 @@
+# Update for 2000 file diff target
 # Explore: explore_2010
 # Auto-generated LookML Explore File
 
