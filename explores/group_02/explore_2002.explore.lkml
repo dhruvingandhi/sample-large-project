@@ -1,3 +1,4 @@
+# Update for 500 file diff target
 # Explore: explore_2002
 # Auto-generated LookML Explore File
 
