@@ -271,7 +271,7 @@ view: view_00003 {
       country_code
     ]
   }
-
+#
   set: marketing_set {
     fields: [
       channel,
